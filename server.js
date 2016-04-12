@@ -44,6 +44,21 @@ app.post('/links',function (req,res){
     res.send({"id":link.id});
 });
 
+app.post('/links/:id/upvote',function (req,res){
+
+    var id = req.params.id;
+
+    links[id].ups += 1;
+    res.send();
+});
+
+app.post('/links/:id/downvote',function (req,res){
+
+    var id = req.params.id;
+
+    links[id].downs += 1;
+    res.send();
+});
 
 app.get('/links/:id?', function(req, res){
     var id = req.params.id;
