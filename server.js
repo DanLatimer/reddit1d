@@ -14,6 +14,15 @@ class Link{
         this.id = id;
         this.time = time;
     }
+
+    update(title,url,time) {
+        if(title)
+            this.title = title;
+        if(url)
+            this.url = url;
+        if(time)
+            this.time = time;
+    }
 }
 
 let links = [];
@@ -36,12 +45,18 @@ app.post('/links',function (req,res){
 });
 
 
-app.patch('/links/id',function (req,res){
+app.get('/links/:id?', function(req, res){
+    var id = req.params.id;
+
+    res.send(links[id]);
+});
+
+app.patch('/links/:id?', function(req, res){
+    var id = req.params.id;
     var body = req.body;
 
-    var link = new Link(body.title,body.url,0,0,links.length,body.time);
-    links.push(link);
-    res.send({"id":link.id});
+    links[id].update(body.title,body.url,body.time);
+    res.send();
 });
 
 
